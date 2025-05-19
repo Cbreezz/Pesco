@@ -1,25 +1,24 @@
-import type { Metadata } from "next";
-import { Providers } from "@/providers";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import Chatbot from "@/components/Chatbot";
-import "./globals.css"; 
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
+import ClientLayout from './ClientLayout';
+
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "PESCO",
-  description: "A modern website for Industrial Engineering.",
+  title: 'Pesco - Industrial Engineering Solutions',
+  description: 'Leading provider of industrial engineering solutions and services',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
-      <body>
-        <Providers>
-          <Navbar />
-          {children}
-          <Chatbot />
-          <Footer />
-        </Providers>
+      <body className={inter.className}>
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );

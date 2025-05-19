@@ -1,101 +1,133 @@
 "use client";
-import { Box, Heading, Text, Button, VStack } from "@chakra-ui/react";
-import { motion } from "framer-motion";
-import NextLink from "next/link";
+import {
+  Box,
+  Container,
+  Heading,
+  Text,
+  Button,
+  useColorModeValue,
+  VStack,
+  HStack,
+  Icon,
+  Flex,
+  useBreakpointValue,
+} from '@chakra-ui/react';
+import { motion } from 'framer-motion';
+import { FaArrowRight } from 'react-icons/fa';
 
-const MotionBox = motion.create(Box);
-const MotionHeading = motion.create(Heading);
-const MotionText = motion.create(Text);
-const MotionButton = motion.create(Button);
+const MotionBox = motion(Box);
 
-const Hero = () => {
-  return (
-    <MotionBox
-      bgImage="url('/Eng2.png')"
-      bgSize="cover"
-      bgPosition="center"
-      bgRepeat="no-repeat"
-      minH="100vh"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      textAlign="center"
-      px={{ base: 4, md: 8, lg: 12 }}
-      py={{ base: 10, md: 16 }}
-      position="relative"
-      overflow="hidden"
-      _before={{
-        content: '""',
-        position: "absolute",
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        bg: "rgba(0, 0, 0, 0.6)",
-        zIndex: 1,
-      }}
-      initial={{ scale: 1 }}
-      animate={{ scale: 1.05 }}
-      transition={{ duration: 8, ease: "linear", repeat: Infinity, repeatType: "mirror" }}
-    >
-      <VStack
-        gap={{ base: 4, md: 6 }}
-        maxW="800px"
-        position="relative"
-        zIndex={2}
-        w="full"
-      >
-        <MotionHeading
-          fontSize={{ base: "2xl", sm: "3xl", md: "4xl", lg: "5xl" }}
-          fontWeight="bold"
-          color="white"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-        >
-          Engineering the Future, Today
-        </MotionHeading>
-        <MotionText
-          fontSize={{ base: "sm", sm: "md", md: "lg", lg: "xl" }}
-          color="gray.300"
-          px={{ base: 2, md: 6 }}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.2 }}
-        >
-          Pioneering innovative solutions that drive automation, efficiency, and sustainable industrial growth.
-        </MotionText>
-        <VStack spacing={4} direction={{ base: "column", md: "row" }}>
-          <NextLink href="/contact" passHref>
-            <MotionButton
-              size="lg"
-              colorScheme="blue"
-              w={{ base: "full", md: "auto" }} 
-              _hover={{ bg: "blue.600", transform: "scale(1.05)" }}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3, delay: 0.4 }}
-            >
-              Contact Us
-            </MotionButton>
-          </NextLink>
-          <NextLink href="/about" passHref>
-            <MotionButton
-              size="lg"
-              colorScheme="gray"
-              w={{ base: "full", md: "auto" }} 
-              _hover={{ bg: "gray.600", transform: "scale(1.05)" }}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3, delay: 0.5 }}
-            >
-              Learn More
-            </MotionButton>
-          </NextLink>
-        </VStack>
-      </VStack>
-    </MotionBox>
+export default function Hero() {
+  const bgGradient = useColorModeValue(
+    'linear(to-br, purple.900, purple.800)',
+    'linear(to-br, purple.900, purple.800)'
   );
-};
+  const textColor = useColorModeValue('white', 'white');
+  const headingColor = useColorModeValue('white', 'white');
+  const buttonBg = useColorModeValue('white', 'white');
+  const buttonHoverBg = useColorModeValue('gray.100', 'gray.100');
+  const buttonTextColor = useColorModeValue('purple.900', 'purple.900');
 
-export default Hero;
+  return (
+    <Box
+      as="section"
+      position="relative"
+      minH={{ base: '60vh', md: '100vh' }}
+      bgGradient={bgGradient}
+      overflow="hidden"
+      role="banner"
+      aria-label="Hero section"
+    >
+      <Container maxW="container.xl" position="relative" zIndex={1} px={{ base: 4, md: 6 }}>
+        <Flex
+          direction={{ base: 'column', md: 'row' }}
+          align="center"
+          justify="space-between"
+          minH={{ base: '60vh', md: '100vh' }}
+          py={{ base: 4, md: 0 }}
+        >
+          {/* Text Content */}
+          <VStack
+            align={{ base: 'center', md: 'start' }}
+            spacing={{ base: 3, md: 8 }}
+            maxW={{ base: '100%', md: '50%' }}
+            textAlign={{ base: 'center', md: 'left' }}
+            pt={{ base: 16, md: 0 }}
+            mt={{ base: 8, md: 0 }}
+          >
+            <MotionBox
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              w="full"
+            >
+              <Heading
+                as="h1"
+                fontSize={{ base: '2xl', sm: '3xl', md: '4xl', lg: '5xl' }}
+                fontWeight="bold"
+                color={headingColor}
+                lineHeight="1.2"
+                mb={{ base: 2, md: 4 }}
+              >
+                Transforming Industry Through Innovation
+              </Heading>
+            </MotionBox>
+
+            <MotionBox
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              w="full"
+            >
+              <Text
+                fontSize={{ base: 'sm', sm: 'md', md: 'xl' }}
+                color={textColor}
+                maxW="600px"
+                mb={{ base: 3, md: 8 }}
+                px={{ base: 2, md: 0 }}
+              >
+                We deliver cutting-edge industrial engineering solutions that drive efficiency, 
+                sustainability, and growth for businesses worldwide.
+              </Text>
+            </MotionBox>
+
+            <MotionBox
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              w={{ base: 'full', md: 'auto' }}
+            >
+              <HStack 
+                spacing={4} 
+                justify={{ base: 'center', md: 'flex-start' }}
+                w={{ base: 'full', md: 'auto' }}
+                flexDir={{ base: 'column', sm: 'row' }}
+              >
+                <Button
+                  size={{ base: 'md', md: 'lg' }}
+                  bg={buttonBg}
+                  color={buttonTextColor}
+                  _hover={{ bg: buttonHoverBg }}
+                  rightIcon={<Icon as={FaArrowRight} />}
+                  aria-label="Get started with our services"
+                  w={{ base: 'full', sm: 'auto' }}
+                >
+                  Get Started
+                </Button>
+                <Button
+                  size={{ base: 'md', md: 'lg' }}
+                  variant="outline"
+                  colorScheme="whiteAlpha"
+                  aria-label="Learn more about our services"
+                  w={{ base: 'full', sm: 'auto' }}
+                >
+                  Learn More
+                </Button>
+              </HStack>
+            </MotionBox>
+          </VStack>
+        </Flex>
+      </Container>
+    </Box>
+  );
+}

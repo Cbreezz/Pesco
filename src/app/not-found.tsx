@@ -1,82 +1,112 @@
 "use client";
 
-import { Box, Heading, Text, Button, VStack } from "@chakra-ui/react";
+import { Box, Heading, Text, VStack, Button, Container, HStack } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import { FaHome, FaArrowLeft, FaProjectDiagram, FaHeadset } from "react-icons/fa";
 import Link from "next/link";
 
-const MotionHeading = motion(Heading);
-const MotionDiv = motion.div;
+const MotionBox = motion(Box);
+const MotionVStack = motion(VStack);
 
-const NotFound = () => {
+export default function NotFound() {
   return (
     <Box
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
       minH="100vh"
-      bg="gray.900"
-      color="white"
-      textAlign="center"
-      px={6}
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
       position="relative"
       overflow="hidden"
     >
-      <VStack spacing={6} position="relative" zIndex={1}>
-        {/* Falling & Glitching 404 */}
-        <MotionHeading
-          fontSize={{ base: "6xl", md: "9xl" }}
-          fontWeight="bold"
-          initial={{ y: -100, opacity: 0 }}
-          animate={{
-            y: 0,
-            opacity: 1,
-            textShadow: [
-              "2px 2px 0px #ff00ff, -2px -2px 0px #00ffff",
-              "-2px -2px 0px #ff00ff, 2px 2px 0px #00ffff",
-              "2px -2px 0px #ff00ff, -2px 2px 0px #00ffff",
-              "-2px 2px 0px #ff00ff, 2px -2px 0px #00ffff",
-            ],
-          }}
-          transition={{
-            duration: 1,
-            ease: "easeOut",
-            repeat: Infinity,
-            repeatType: "reverse",
-          }}
-          whileHover={{ scale: 1.05 }}
-        >
-          404
-        </MotionHeading>
+      {/* Background Gradient */}
+      <Box
+        position="absolute"
+        top={0}
+        left={0}
+        right={0}
+        bottom={0}
+        bg="brand.50"
+        opacity={0.1}
+        zIndex={0}
+      />
 
-        {/* Error Message with Fade-in Effect */}
-        <MotionDiv
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 1 }}
+      <Container maxW="container.xl" position="relative" zIndex={1}>
+        <MotionVStack
+          spacing={8}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
         >
-          <Text fontSize={{ base: "lg", md: "xl" }} color="gray.400">
-            Oops! The page you are looking for does not exist.
+          <Heading
+            fontSize={{ base: "6xl", md: "8xl" }}
+            textAlign="center"
+            variant="gradient"
+          >
+            404
+          </Heading>
+          
+          <Text
+            fontSize={{ base: "xl", md: "2xl" }}
+            textAlign="center"
+            maxW="2xl"
+          >
+            Oops! The page you're looking for seems to have vanished into thin air.
           </Text>
-        </MotionDiv>
 
-        {/* Animated Button */}
-        <motion.div whileHover={{ scale: 1.1 }}>
-          <Link href="/">
+          <HStack spacing={4}>
             <Button
-              colorScheme="blue"
+              as={Link}
+              href="/"
+              leftIcon={<FaHome />}
+              variant="gradient"
               size="lg"
-              _hover={{
-                boxShadow: "0px 0px 20px rgba(0, 0, 255, 0.7)",
-                transition: "0.3s ease-in-out",
-              }}
             >
-              Back to Home
+              Return Home
             </Button>
-          </Link>
-        </motion.div>
-      </VStack>
+            <Button
+              onClick={() => window.history.back()}
+              leftIcon={<FaArrowLeft />}
+              variant="outline"
+              size="lg"
+            >
+              Go Back
+            </Button>
+          </HStack>
+
+          <Box
+            mt={12}
+            p={8}
+            borderRadius="xl"
+            bg="white"
+            boxShadow="xl"
+            layerStyle="cardHover"
+          >
+            <VStack spacing={4}>
+              <Text fontSize="lg" fontWeight="medium">
+                Need help finding what you're looking for?
+              </Text>
+              <HStack spacing={4}>
+                <Button
+                  as={Link}
+                  href="/projects"
+                  leftIcon={<FaProjectDiagram />}
+                  variant="outline"
+                >
+                  View Projects
+                </Button>
+                <Button
+                  as={Link}
+                  href="/contact"
+                  leftIcon={<FaHeadset />}
+                  variant="outline"
+                >
+                  Contact Support
+                </Button>
+              </HStack>
+            </VStack>
+          </Box>
+        </MotionVStack>
+      </Container>
     </Box>
   );
-};
-
-export default NotFound;
+}
